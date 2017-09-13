@@ -50,32 +50,33 @@ void load_windmill(Windmill* w) {
 	w->roof = LoadModelPlus("windmill/windmill-roof.obj");
 	w->balcony = LoadModelPlus("windmill/windmill-balcony.obj");
 	w->blade_angle = 0;
-	w->pos = SetVector(0,0,0);
-	w->rot = SetVector(0,0,0);
-	w->sca = SetVector(0,0,0);
-	// Pre-calculating the position of each blade
+	w->pos = SetVector(15,10,0);
+	w->rot = SetVector(M_PI*0.25,0,0);
+	w->sca = SetVector(1,0.25,1);
+	// Pre-calculating the position and angle of each blade
 	for (int i=0; i<4; i++) {
 		w->blade_transform[i] = Mult(T(4.5,9.25,0), Rx(M_PI*i*0.5));
 	}
 }
 
 void draw_windmill(Windmill* w) {
+	// Calculating global transformation of the windmill
+	mat4 t_pos, t_rot, t_sca;
+	t_pos = T(w->pos.x, w->pos.y, w->pos.z);
+	t_rot = Mult(Rx(w->rot.x), Mult(Ry(w->rot.y), Rz(w->rot.z)));
+	t_sca = S(w->sca.x, w->sca.y, w->sca.z);
 	mat4 transformationMatrix;
-
-// THINGS TO DO:
-// - Store the transformation matrix of each blade in the object.
-// - Calculate a rotation matrix and use it for every blade.
+	transformationMatrix = Mult(t_rot, Mult(t_sca, t_pos));
 
 	// Drawing the blades
 	mat4 blade_rotation = Rx(w->blade_angle);
 	for (int i=0; i<4; i++) {
-		transformationMatrix = Mult(w->blade_transform[i], blade_rotation);
-		glUniformMatrix4fv(glGetUniformLocation(program, "transformationMatrix"), 1, GL_TRUE, transformationMatrix.m);
+		mat4 blade_transform = Mult(transformationMatrix, Mult(w->blade_transform[i], blade_rotation));
+		glUniformMatrix4fv(glGetUniformLocation(program, "transformationMatrix"), 1, GL_TRUE, blade_transform.m);
 		DrawModel(w->blade, program, "inPosition", "inNormal", "inTexCoord");
 	}
 
 	// Drawing the body
-	transformationMatrix = T(0,0,0);
 	glUniformMatrix4fv(glGetUniformLocation(program, "transformationMatrix"), 1, GL_TRUE, transformationMatrix.m);
 	DrawModel(w->walls, program, "inPosition", "inNormal", "inTexCoord");
 	DrawModel(w->roof, program, "inPosition", "inNormal", "inTexCoord");

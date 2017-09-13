@@ -4,7 +4,7 @@
 
 ## How are the textures coordinates mapped on the bunny? Can you see what geometry was used?
 
-It seems to me that they used an spherical mapping to set the texture coordinates.
+I think that they used an spherical mapping to set the texture coordinates.
 
 ## What kind of procedural texture did you make?
 

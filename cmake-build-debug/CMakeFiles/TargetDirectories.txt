@@ -1,0 +1,3 @@
+/home/alvaro/Escritorio/CG_Labs/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/alvaro/Escritorio/CG_Labs/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/alvaro/Escritorio/CG_Labs/cmake-build-debug/CMakeFiles/CG_Labs.dir

@@ -11,6 +11,8 @@
 	// Linking hint for Lightweight IDE
 	// uses framework Cocoa
 #endif
+
+#include "glew.h"
 #include "MicroGlut.h"
 #include "GL_utilities.h"
 

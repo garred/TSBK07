@@ -43,6 +43,8 @@ typedef struct TextureData		// Create A Structure for .tga loading.
 	GLfloat	texWidth, texHeight;
 } TextureData, *TextureDataPtr;					// Structure Name
 
+TextureData* CloneTexture(TextureData* t);
+
 bool LoadTGATexture(char *filename, TextureData *texture);
 void LoadTGATextureSimple(char *filename, GLuint *tex);
 void LoadTGASetMipmapping(bool active);

@@ -18,10 +18,10 @@
 class Graphics {
 
 public:
-  static struct Frustum frustum_measures;
+	static struct Frustum frustum_measures;
 	static struct Light lights[NUMBER_LIGHTS];
-  static GLuint shader_program;
-  static mat4 projection_matrix;
+	static GLuint shader_program;
+	static mat4 projection_matrix;
 	static GLuint white_texture;
 
 	static void init_all();
@@ -30,7 +30,9 @@ public:
 	static void update_lights();
 
 	static void set_texture(GLuint t);
-	static void set_material(float shininess, float alpha, float k_d);
+	static void set_material(float shininess, float alpha, float k_d, bool useLights=true);
+
+    static void load_media();
 };
 
 

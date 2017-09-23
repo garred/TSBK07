@@ -8,7 +8,8 @@
 #include "helpers.hpp"
 
 #include <iostream>
-//#include <gl_mangle.h>
+#include <tuple>
+#include <functional>
 
 using namespace std;
 
@@ -20,7 +21,13 @@ using namespace std;
 Camera *Camera::current;
 
 void Camera::update() {
-    // User change camera position and rotation
+    // If the camera is following an object, we update its coordinates
+    if (following) {
+        vec3 destination = following->get_global_matrix() * relative_position;
+        position = (1-following_velocity)*position + following_velocity*destination;
+        l = following->get_global_matrix() * (following->position + relative_look_at);
+    }
+
     // Calculate the new rotation of the camera
     vec3 n = Normalize(l - position);
     vec3 x_axis = CrossProduct(n, SetVector(0, 1, 0));
@@ -220,7 +227,7 @@ void generate_terrain(Terrain *terrain, TextureData *tex) {
 
 void Terrain::load_terrain() {
     TextureData heightmap_texture;
-    LoadTGATextureData("media/terrain/heightmap.tga", &heightmap_texture);
+    LoadTGATextureData("media/random_terrain/heightmap.tga", &heightmap_texture);
     generate_terrain(this, &heightmap_texture);
 
     for (int i = 0; i < 8; i++) {
@@ -247,6 +254,193 @@ void Terrain::load_terrain() {
     this->alpha = 1.0;
 }
 
+
+// Membership functions to generate the alpha levels of terrain types from the height info.
+double membership(double value, double bottom_left, double top_left, double top_right, double bottom_right) {
+    if (value < bottom_left)
+        return 0.0;
+    else if (value < top_left)
+        return (value-bottom_left) / (top_left-bottom_left);
+    else if (value < top_right)
+        return 1.0;
+    else if (value < bottom_right)
+        return 1.0 - ((value-top_right) / (bottom_right-top_right));
+    else
+        return 0.0;
+}
+using namespace std::placeholders;
+auto water_func     = std::bind(membership, _1, -1.0, 0.0, 0.0, 0.005);
+auto sand_func      = std::bind(membership, _1,  0.0, 0.005, 0.1, 0.4);
+auto grass_func     = std::bind(membership, _1,  0.1, 0.4, 0.5, 0.6);
+auto rockgrass_func = std::bind(membership, _1,  0.5, 0.6, 0.7, 0.8);
+auto rock_func      = std::bind(membership, _1,  0.7, 0.8, 1.0, 2.0);
+
+void create_texture(TextureData& texture) {
+    texture.bpp = 24;
+    texture.width = 256;
+    texture.height = 256;
+    texture.w = 256;
+    texture.h = 256;
+    texture.texID = 0;
+    texture.texWidth = 1;
+    texture.texHeight = 1;
+
+    GLuint image_size = (texture.bpp/8) * texture.w * texture.h;
+    texture.imageData = new GLubyte[image_size];
+}
+
+void generate_height_map(double (&m)[256][256]) {
+
+    // Initial random values
+    for (unsigned int x = 0; x < 256; x++) {
+        for (unsigned int y = 0; y < 256; y++) {
+            m[x][y] = Random::real(0, 1);
+        }
+    }
+
+    // Smoothing 100 times
+    for (int i = 0; i < 100; i++) {
+        double u[256][256];
+        double max = -10000, min = 10000;
+        for (int x = 0; x < 256; x++) {
+            for (int y = 0; y < 256; y++) {
+                double n = 0.0;
+                u[x][y] = 0.0;
+                for (int j = -1; j <= 1; j++) {
+                    for (int k = -1; k <= 1; k++) {
+                        if ((x + j) >= 0 and (x + j) < 256 and
+                            (y + k) >= 0 and (y + k) < 256) {
+                            n += 1.0;
+                            u[x][y] += m[x + j][y + k];
+                        }
+                    }
+                }
+                u[x][y] /= n;
+                max = (u[x][y] > max) ? u[x][y] : max;
+                min = (u[x][y] < min) ? u[x][y] : min;
+            }
+        }
+        for (unsigned int x = 0; x < 256; x++)
+            for (unsigned int y = 0; y < 256; y++)
+                m[x][y] = (u[x][y] - min) / (max - min);
+    }
+
+    // Creating some water areas
+    double max = -1000;
+    for (int x = 0; x < 256; x++)
+        for (int y = 0; y < 256; y++) {
+            m[x][y] = m[x][y] - 0.3;
+            m[x][y] = (m[x][y] < 0.0) ? 0.0 : m[x][y];
+            max = (m[x][y] > max) ? m[x][y] : max;
+        }
+    max = 1.0 / max;
+    for (int x = 0; x < 256; x++)
+        for (int y = 0; y < 256; y++)
+            m[x][y] *= max;
+}
+
+
+
+void process_height_data(double (&height_data)[256][256], double (&texture_data)[256][256], decltype(water_func) f) {
+    for (int x=0; x<256; x++)
+        for (int y=0; y<256; y++)
+            texture_data[x][y] = f(height_data[x][y]);
+}
+
+
+void data_to_texture(double (&data)[256][256], TextureData& texture) {
+    for (unsigned int x=0; x<256; x++) {
+        for (unsigned int y=0; y<256; y++) {
+            texture.imageData[x*3 + y*256*3    ] = GLubyte(data[x][y]*255);
+            texture.imageData[x*3 + y*256*3 + 1] = texture.imageData[x*3 + y*256*3];
+            texture.imageData[x*3 + y*256*3 + 2] = texture.imageData[x*3 + y*256*3];
+        }
+    }
+}
+
+void Terrain::randomize() {
+
+    // Create the data structure of each texture
+
+    TextureData height_texture;
+    TextureData water_texture;
+    TextureData sand_texture;
+    TextureData grass_texture;
+    TextureData rockgrass_texture;
+    TextureData rock_texture;
+    create_texture(height_texture);
+    create_texture(water_texture);
+    create_texture(sand_texture);
+    create_texture(grass_texture);
+    create_texture(rockgrass_texture);
+    create_texture(rock_texture);
+
+    // Generate a smoothed random terrain
+
+    double height_data[256][256];
+    generate_height_map(height_data);
+
+    // Generate the alpha data for each texture
+
+    double water_data[256][256];
+    double sand_data[256][256];
+    double grass_data[256][256];
+    double rockgrass_data[256][256];
+    double rock_data[256][256];
+    process_height_data(height_data, water_data,     water_func);
+    process_height_data(height_data, sand_data,      sand_func);
+    process_height_data(height_data, grass_data,     grass_func);
+    process_height_data(height_data, rockgrass_data, rockgrass_func);
+    process_height_data(height_data, rock_data,      rock_func);
+
+    // Put data inside textures
+
+    data_to_texture(height_data,    height_texture);//, true);
+    data_to_texture(water_data,     water_texture);
+    data_to_texture(sand_data,      sand_texture);
+    data_to_texture(grass_data,     grass_texture);
+    data_to_texture(rockgrass_data, rockgrass_texture);
+    data_to_texture(rock_data,      rock_texture);
+
+    // Save the textures
+
+    SaveTGA(&height_texture,    "media/random_terrain/heightmap.tga");
+    SaveTGA(&water_texture,     "media/random_terrain/level_0.tga");
+    SaveTGA(&sand_texture,      "media/random_terrain/level_1.tga");
+    SaveTGA(&grass_texture,     "media/random_terrain/level_2.tga");
+    SaveTGA(&rockgrass_texture, "media/random_terrain/level_3.tga");
+    SaveTGA(&rock_texture,      "media/random_terrain/level_4.tga");
+
+    // Generate the polygons
+
+    LoadTGATextureData("media/random_terrain/heightmap.tga", &height_texture);
+    generate_terrain(this, &height_texture);
+
+    // Add textures
+
+    for (int i = 0; i < 8; i++) {
+        this->texture_color[i] = (i == 0) ? Graphics::white_texture : 0;
+        this->texture_alpha[i] = (i == 0) ? Graphics::white_texture : 0;
+        this->texture_tile[i] = 30.0;
+    }
+    LoadTGATextureSimple("media/random_terrain/water.tga", &(this->texture_color[0]));
+    LoadTGATextureSimple("media/random_terrain/level_0.tga", &(this->texture_alpha[0]));
+    LoadTGATextureSimple("media/random_terrain/sand.tga", &(this->texture_color[1]));
+    LoadTGATextureSimple("media/random_terrain/level_1.tga", &(this->texture_alpha[1]));
+    LoadTGATextureSimple("media/random_terrain/grass.tga", &(this->texture_color[2]));
+    LoadTGATextureSimple("media/random_terrain/level_2.tga", &(this->texture_alpha[2]));
+    LoadTGATextureSimple("media/random_terrain/rock-grass.tga", &(this->texture_color[3]));
+    LoadTGATextureSimple("media/random_terrain/level_3.tga", &(this->texture_alpha[3]));
+    LoadTGATextureSimple("media/random_terrain/rock.tga", &(this->texture_color[4]));
+    LoadTGATextureSimple("media/random_terrain/level_4.tga", &(this->texture_alpha[4]));
+
+    this->position = SetVector(-2560, 0, -2560);
+    this->scale = SetVector(20, 20, 20);
+    this->rotation = SetVector(0, 0, 0);
+    this->reflectivity = 1.0;
+    this->shininess = 0.0;
+    this->alpha = 1.0;
+}
 
 // I'm assumming that terrains are never rotated (but they could be scaled or translated).
 float Terrain::get_height(vec3 object_position) {
@@ -344,89 +538,126 @@ vec3 Terrain::get_normal(vec3 object_position) {
 ********************************************************************************
 *******************************************************************************/
 
-void Node::update() {
-    velocity = velocity + SetVector(0, -9.8, 0) * Game::delta;
-    position = position + velocity;
 
-    float terrain_height = Terrain::current->get_height(position);
-    if ((position.y - size) < terrain_height) {
-        vec3 terrain_normal = Terrain::current->get_normal(position);
-
-        position.y = terrain_height + size;
-        vec3 bounce_velocity, slidding_velocity;
-        SplitVector(velocity, terrain_normal, &bounce_velocity, &slidding_velocity);
-        velocity = slidding_velocity * slideness - bounce_velocity * bounceness;
-    }
-}
+Model *Vehicle::body_model, *Vehicle::turret_model, *Vehicle::cannon_model;
+GLuint Vehicle::model_texture;
 
 
-void Node::draw()
-{ //TODO
-    /*
-    vec3 n = Normalize(l - position);
-    vec3 x_axis = CrossProduct(n, SetVector(0,1,0));
-    mat4 t_rot = ArbRotate(x_axis, -rotation.y) * Ry(-rotation.x);
-    n = MultVec3(t_rot, n);
-    rotation = SetVector(0,0,0);
-    */
-
-    // Calculating 3 contact points to the ground to calculate the vertical vector
+tuple<vec3,vec3,vec3,vec3> Vehicle::_update_ground() {
+    // Calculating contact points to the ground to calculate the vertical vector
     vec3 fl,fr,bl,br; //front-left, front-right, back-left, back-right
     vec3 dir = Normalize(SetVector(direction.x, 0, direction.z));
     vec3 side = SetVector(-dir.z, 0, dir.x);
-    fl = position + dir - side;
-    fr = position + dir + side;
-    bl = position - dir - side;
-    br = position - dir + side;
+    fl = position + dir*6 - side*3;
+    fr = position + dir*6 + side*3;
+    bl = position - dir*6 - side*3;
+    br = position - dir*6 + side*3;
 
     // Calculating the position
     fl.y = Terrain::current->get_height(fl);
     fr.y = Terrain::current->get_height(fr);
     bl.y = Terrain::current->get_height(bl);
     br.y = Terrain::current->get_height(br);
-    position = (fl + fr + bl + br) * 0.25;
+
+    ground = (fl + fr + bl + br) * 0.25;
+
+    return make_tuple(fl, fr, bl, br);
+}
+
+mat4 Vehicle::_get_terrain_orientation() {
+    vec3 fl,fr,bl,br; //front-left, front-right, back-left, back-right
+    tie(fl, fr, bl, br) = _update_ground();
 
     // Calculating the normal
     vec3 up = (Terrain::current->get_normal(fl) +
-            Terrain::current->get_normal(fr) +
-            Terrain::current->get_normal(bl) +
-            Terrain::current->get_normal(br)) * 0.25;
+               Terrain::current->get_normal(fr) +
+               Terrain::current->get_normal(bl) +
+               Terrain::current->get_normal(br)) * 0.25;
+    vec3 pre_normal = normal;
+    double v = 0.01;
+    normal = Normalize(up*v + normal*(1-v) + normal_vel*v);
+    normal_vel = normal_vel*(1-v) + normal - pre_normal;
+    up = normal;
 
+    vec3 dir = direction;
+
+    // Calculating the right vector
     vec3 right = CrossProduct(up, dir);
-    dir = CrossProduct(up, right);
 
+
+    // Updating the dir vector and normalizing
+    dir = Normalize(CrossProduct(up, right));
     up = Normalize(up);
     right = Normalize(right);
-    dir = Normalize(dir);
 
+    // Calculating the transformation matrix
     mat4 lt = IdentityMatrix();
-    lt.m[0]=dir.x;  lt.m[1]=dir.y;  lt.m[2]=dir.z;
-    lt.m[4]=up.x;   lt.m[5]=up.y;   lt.m[6]=up.z;
-    lt.m[8]=right.x;lt.m[9]=right.y;lt.m[10]=right.z;
-    lt = Transpose(lt);
+    lt.m[0]=dir.x;  lt.m[1]=up.x;   lt.m[2] =right.x;
+    lt.m[4]=dir.y;  lt.m[5]=up.y;   lt.m[6] =right.y;
+    lt.m[8]=dir.z;  lt.m[9]=up.z;   lt.m[10]=right.z;
 
-    transformation_matrix = transformation(position, rotation, scale) * lt;
+    return lt;
+}
 
-    glUniformMatrix4fv(glGetUniformLocation(Graphics::shader_program, "transformationMatrix"), 1, GL_TRUE,
-                       transformation_matrix.m);
 
-    GLint colorTexUnit[8], alphaTexUnit[8];
-    GLfloat tilesTexUnit[8];
-    for (int i = 0; i < 8; i++) {
-        glActiveTexture(GL_TEXTURE0 + i);
-        glBindTexture(GL_TEXTURE_2D, texture_color[i]);
-        glActiveTexture(GL_TEXTURE0 + i + 8);
-        glBindTexture(GL_TEXTURE_2D, texture_alpha[i]);
-        colorTexUnit[i] = i;
-        alphaTexUnit[i] = 8 + i;
-        tilesTexUnit[i] = texture_tile[i];
+void Vehicle::update() {
+
+    _update_ground();
+
+    // Friction
+    vec3 terrain_normal = Terrain::current->get_normal(position);
+
+    position.y = ground.y;
+
+    velocity += movement;
+    vec3 bounce_velocity, slidding_velocity;
+    SplitVector(velocity, terrain_normal, &bounce_velocity, &slidding_velocity);
+    velocity = slidding_velocity * slideness - bounce_velocity * bounceness;
+
+    position += velocity;
+
+}
+
+
+mat4 Vehicle::get_transformation_matrix() {
+    return transformation(position, rotation, scale) * _get_terrain_orientation();
+}
+
+
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+Model* Bullet::bullet_model;
+
+void Bullet::update() {
+    // Move the bullet
+    position += velocity * Game::delta;
+    velocity += SetVector(0.0,-9.8,0.0) * Game::delta * 10.0;
+
+    // Check if it hits the terrain
+    if (position.y < Terrain::current->get_height(position)) {
+        Explosion::create(position);
+        alive = false;
     }
-    glUniform1iv(glGetUniformLocation(Graphics::shader_program, "colorTexUnit"), 8, colorTexUnit);
-    glUniform1iv(glGetUniformLocation(Graphics::shader_program, "alphaTexUnit"), 8, alphaTexUnit);
-    glUniform1fv(glGetUniformLocation(Graphics::shader_program, "tilesTexUnit"), 8, tilesTexUnit);
+}
 
-    Graphics::set_material(shininess, alpha, reflectivity);
-    DrawModel(model, Graphics::shader_program, "inPosition", "inNormal", "inTexCoord");
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+Model* Explosion::explosion_model;
+GLuint Explosion::fire_texture;
+
+void Explosion::update() {
+    alpha -= 0.025;
+    life -= 5;
+    scale *= 1.25;
+
+    // Check if the explosion died
+    if (life <= 0.0) {
+        alive = false;
+    }
 }
 
 

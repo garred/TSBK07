@@ -9,7 +9,7 @@
 
 class Interface {
 public:
-  static Node* player;
+  static Vehicle* player;
   static void init_all();
   static void draw_all();
   static void keyboard_update();

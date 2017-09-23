@@ -3,6 +3,7 @@
 
 
 #include "graphics.hpp"
+#include "entities.hpp"
 
 
 struct Light {
@@ -68,8 +69,8 @@ void init_lights() {
 
   Graphics::lights[0].active = 1;
   Graphics::lights[0].range = 200.0;
-  Graphics::lights[0].color = SetVector(1,1,1);
-  Graphics::lights[0].ambientFactor = 0.0;
+  Graphics::lights[0].color = SetVector(0.5,0.5,0.5);
+  Graphics::lights[0].ambientFactor = 1.0;
   Graphics::lights[0].directional = 1;
   Graphics::lights[0].pos_dir = SetVector(0,-1,0);
 }
@@ -77,27 +78,27 @@ void init_lights() {
 
 // Create a window, set initial configuration
 void Graphics::init_all() {
-  create_window();
-  dumpInfo();
-  init_opengl();
+    create_window();
+    dumpInfo();
+    init_opengl();
 
-	// Load and compile shader
-	Graphics::shader_program = loadShaders("src/lab.vert", "src/lab.frag");
-	printError("init shader");
+    // Load and compile shader
+    Graphics::shader_program = loadShaders("src/lab.vert", "src/lab.frag");
+    printError("init shader");
 
-	// Set and send projection matrix to the vertex shader
-	Graphics::projection_matrix = frustum(
+    // Set and send projection matrix to the vertex shader
+    Graphics::projection_matrix = frustum(
     Graphics::frustum_measures.left,    Graphics::frustum_measures.right,
     Graphics::frustum_measures.bottom,  Graphics::frustum_measures.top,
     Graphics::frustum_measures.near,    Graphics::frustum_measures.far);
-	glUniformMatrix4fv(
+    glUniformMatrix4fv(
     glGetUniformLocation(Graphics::shader_program, "projectionMatrix"),
     1, GL_TRUE, Graphics::projection_matrix.m);
 
-  LoadTGATextureSimple("media/white.tga", &Graphics::white_texture);
-  reset_textures();
+    load_media();
+    reset_textures();
 
-  init_lights();
+    init_lights();
 }
 
 
@@ -167,15 +168,35 @@ void Graphics::set_texture(GLuint t) {
 }
 
 
-void Graphics::set_material(float shininess, float alpha, float k_d) {
-  glUniform1f(glGetUniformLocation(Graphics::shader_program, "k_d"), k_d);
-  glUniform1f(glGetUniformLocation(Graphics::shader_program, "specularExponent"), shininess);
-  glUniform1f(glGetUniformLocation(Graphics::shader_program, "transparency"), alpha);
-  if (alpha < 1.0) {
-    glDisable(GL_CULL_FACE);
-  } else {
-    glEnable(GL_CULL_FACE);
-  }
+void Graphics::set_material(float shininess, float alpha, float k_d, bool use_lights) {
+    glUniform1f(glGetUniformLocation(Graphics::shader_program, "k_d"), k_d);
+    glUniform1f(glGetUniformLocation(Graphics::shader_program, "specularExponent"), shininess);
+    glUniform1f(glGetUniformLocation(Graphics::shader_program, "transparency"), alpha);
+    glUniform1f(glGetUniformLocation(Graphics::shader_program, "useLights"), use_lights);
+    if (alpha < 1.0) {
+        glDisable(GL_CULL_FACE);
+    } else {
+        glEnable(GL_CULL_FACE);
+    }
+}
+
+
+void Graphics::load_media() {
+    // Default texture
+    LoadTGATextureSimple("media/white.tga", &Graphics::white_texture);
+
+    // Tank objects and textures
+    LoadTGATextureSimple("media/tank/body_texture.tga", &Vehicle::model_texture);
+    Vehicle::body_model = LoadModelPlus("media/tank/tank_body.obj");
+    Vehicle::turret_model = LoadModelPlus("media/tank/turret.obj");
+    Vehicle::cannon_model = LoadModelPlus("media/tank/cannon.obj");
+
+    // Bullet object
+    Bullet::bullet_model = LoadModelPlus("media/bullet/bullet.obj");
+
+    // Explosion object (the same as the bullet) and texture
+    Explosion::explosion_model = LoadModelPlus("media/explosion/explosion.obj");
+    LoadTGATextureSimple("media/explosion/fire.tga", &Explosion::fire_texture);
 }
 
 

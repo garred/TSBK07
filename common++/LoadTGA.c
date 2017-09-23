@@ -12,6 +12,15 @@
 
 #include "LoadTGA.h"
 
+TextureData* CloneTexture(TextureData* t) {
+    TextureData* y = (TextureData*)malloc(sizeof(TextureData));
+    memcpy(y, t, sizeof(TextureData));
+    y->imageData = (GLubyte*) malloc(t->w * t->h * (t->bpp/8));
+    memcpy(y->imageData, t->imageData, t->w * t->h * (t->bpp/8));
+    return y;
+}
+
+
 static bool gMipmap = true;
 
 // Note that turning mimpapping on and off refers to the loading stage only.

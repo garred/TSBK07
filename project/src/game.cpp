@@ -16,36 +16,40 @@ float Game::delta = .0f;
 
 
 void Game::init_all() {
-  Graphics::init_all();
+    Graphics::init_all();
 
-  Random::init_all();
+    Random::init_all();
 
-  // Set the function that updates game logic and interface n times per second.
-  glutTimerFunc(15, &Game::update_all, 0);
+    // Set the function that updates game logic and interface n times per second.
+    glutTimerFunc(15, &Game::update_all, 0);
 
-  // Set the function that redraws in glut's inner loop
-  glutDisplayFunc(Game::draw_all);
+    // Set the function that redraws in glut's inner loop
+    glutDisplayFunc(Game::draw_all);
 
-  Interface::init_all();
-  Entity::init_all();
+    Interface::init_all();
+    Entity::init_all();
 
-  // Create a box in the middle
-  Entity* my_box = new Box();
-  Entity::world->add_child(my_box);
+    // Create a box in the middle
+    Entity* my_box = new Box();
+    Entity::world->add_child(my_box);
 
-  // Creates a terrain
-  Terrain::current = new Terrain();
-  Terrain::current->load_terrain();
-  Entity::world->add_child(Terrain::current);
+    // Creates a terrain
+    Terrain::current = new Terrain();
+    //Terrain::current->load_terrain();
+    Terrain::current->randomize();
+    Entity::world->add_child(Terrain::current);
 
-  // Create a node in the air
-  Node* my_node = new Node();
-  my_node->position = SetVector( 100, 100, 100);
-  Entity::world->add_child(my_node);
-  Interface::player = my_node;
+    // Create a vehicle
+    Vehicle* my_node = new Vehicle();
+    my_node->position = SetVector( 20, 1000, 20);
+    Entity::world->add_child(my_node);
+    Interface::player = my_node;
+
+    // Sets the camera to follow the vehicle (specifically, the cannon)
+    Camera::current->following = my_node->children.front()->children.front();
 
 
-  time = (GLfloat)glutGet(GLUT_ELAPSED_TIME)*0.001;
+    time = (GLfloat)glutGet(GLUT_ELAPSED_TIME)*0.001;
 }
 
 
@@ -58,19 +62,20 @@ void Game::draw_all() {
 
 
 void Game::update_all(int value) {
-  glutTimerFunc(15, &Game::update_all, value);
-  glutPostRedisplay();
+    glutTimerFunc(15, &Game::update_all, value);
+    glutPostRedisplay();
 
-  // Time info for shaders and game logic
-	float t = (GLfloat)glutGet(GLUT_ELAPSED_TIME)*0.001;
-	glUniform1f(glGetUniformLocation(Graphics::shader_program, "time"), t);
-  delta = t - time;
-  time = t;
+    // Time info for shaders and game logic
+    float t = (GLfloat)glutGet(GLUT_ELAPSED_TIME)*0.001;
+    glUniform1f(glGetUniformLocation(Graphics::shader_program, "time"), t);
+    delta = t - time;
+    time = t;
 
-  Entity::update_all();
-  Interface::keyboard_update();
-  Graphics::update_lights();
-  glutWarpPointer(200,200);       //Resets the mouse position
+    Entity::update_all();
+    Entity::remove_all_died();
+    Interface::keyboard_update();
+    Graphics::update_lights();
+    //glutWarpPointer(200,200);       //Resets the mouse position
 }
 
 #endif

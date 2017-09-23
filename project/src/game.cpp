@@ -39,15 +39,33 @@ void Game::init_all() {
     Terrain::current->randomize();
     Entity::world->add_child(Terrain::current);
 
-    // Create a vehicle
+    // Create a vehicle for the player
     Vehicle* my_node = new Vehicle();
-    my_node->position = SetVector( 20, 1000, 20);
+    my_node->position = SetVector( 0, 1000, 0);
     Entity::world->add_child(my_node);
     Interface::player = my_node;
 
     // Sets the camera to follow the vehicle (specifically, the cannon)
     Camera::current->following = my_node->children.front()->children.front();
 
+    // Create some enemies
+    for (int i=0; i<50; i++) {
+        Enemy* enemy = new Enemy();
+        enemy->position = SetVector(Random::real(-1,1),0,Random::real(-1,1)) * 2000.0;
+        Entity::world->add_child(enemy);
+    }
+
+    // Create some trees
+    for (int i=0; i<200; i++) {
+        Tree* tree = new Tree();
+        bool placed = false;
+        while(not placed) {
+            tree->position = SetVector(Random::real(-1, 1), 0, Random::real(-1, 1)) * 3000.0;
+            tree->position.y = Terrain::current->get_height(tree->position);
+            placed = tree->position.y > 100 and tree->position.y < 1000;
+        }
+        Entity::world->add_child(tree);
+    }
 
     time = (GLfloat)glutGet(GLUT_ELAPSED_TIME)*0.001;
 }

@@ -193,13 +193,56 @@ public:
         e->position = pos;
         e->scale *= -1;
         e->rotation = SetVector(Random::real(-10,10),Random::real(-10,10),Random::real(-10,10));
+
+        e->destroy_close_objects();
+
         Entity::world->add_child(e);
         e->life = 100;
         e->alpha = 0.5;
         e->use_light = false;
     }
 
-    void update();
+    void update() override;
+
+private:
+    void destroy_close_objects();
 };
+
+
+
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+
+class Enemy : public Vehicle {
+public:
+    void update() override;
+};
+
+
+
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+class Tree : public Entity {
+public:
+
+    static Model* tree_model;
+    static GLuint tree_texture;
+
+    Tree() {
+        model = tree_model;
+        texture_color[0] = tree_texture;
+        rotation.y = Random::real(-100,100);
+        scale = SetVector(1,1,1) * Random::real(15,30);
+    }
+
+    ~Tree() {}
+};
+
+
+
 
 #endif

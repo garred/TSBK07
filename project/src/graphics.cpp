@@ -197,6 +197,10 @@ void Graphics::load_media() {
     // Explosion object (the same as the bullet) and texture
     Explosion::explosion_model = LoadModelPlus("media/explosion/explosion.obj");
     LoadTGATextureSimple("media/explosion/fire.tga", &Explosion::fire_texture);
+
+    // Tree object and texture
+    Tree::tree_model = LoadModelPlus("media/tree/pine.obj");
+    LoadTGATextureSimple("media/tree/pine.tga", &Tree::tree_texture);
 }
 
 

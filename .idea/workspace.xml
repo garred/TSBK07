@@ -14,39 +14,21 @@
     <list default="true" id="12f3d1ce-7bd2-48f8-ad77-10d62d9d6c0b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/gmon.out" afterPath="$PROJECT_DIR$/project/gmon.out" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/main" afterPath="$PROJECT_DIR$/project/main" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/terrain/heightmap.tga" afterPath="$PROJECT_DIR$/project/media/terrain/heightmap.tga" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/random_terrain/heightmap.tga" afterPath="$PROJECT_DIR$/project/media/random_terrain/heightmap.tga" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/random_terrain/level_0.tga" afterPath="$PROJECT_DIR$/project/media/random_terrain/level_0.tga" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/random_terrain/level_1.tga" afterPath="$PROJECT_DIR$/project/media/random_terrain/level_1.tga" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/random_terrain/level_2.tga" afterPath="$PROJECT_DIR$/project/media/random_terrain/level_2.tga" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/random_terrain/level_3.tga" afterPath="$PROJECT_DIR$/project/media/random_terrain/level_3.tga" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/media/random_terrain/level_4.tga" afterPath="$PROJECT_DIR$/project/media/random_terrain/level_4.tga" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/entities.o" afterPath="$PROJECT_DIR$/project/obj/entities.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/entity.o" afterPath="$PROJECT_DIR$/project/obj/entity.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/game.o" afterPath="$PROJECT_DIR$/project/obj/game.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/graphics.o" afterPath="$PROJECT_DIR$/project/obj/graphics.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/helpers.o" afterPath="$PROJECT_DIR$/project/obj/helpers.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/interface.o" afterPath="$PROJECT_DIR$/project/obj/interface.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/main.o" afterPath="$PROJECT_DIR$/project/obj/main.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/obj/random.o" afterPath="$PROJECT_DIR$/project/obj/random.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CG_Labs.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/CG_Labs.cbp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/cmake_clean.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/cmake_clean.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/progress.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CG_Labs.dir/progress.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="$PROJECT_DIR$/cmake-build-debug/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common++/LoadTGA.c" afterPath="$PROJECT_DIR$/common++/LoadTGA.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common++/LoadTGA.h" afterPath="$PROJECT_DIR$/common++/LoadTGA.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/makefile" afterPath="$PROJECT_DIR$/project/makefile" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/entities.cpp" afterPath="$PROJECT_DIR$/project/src/entities.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/entities.hpp" afterPath="$PROJECT_DIR$/project/src/entities.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/entity.cpp" afterPath="$PROJECT_DIR$/project/src/entity.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/entity.hpp" afterPath="$PROJECT_DIR$/project/src/entity.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/game.cpp" afterPath="$PROJECT_DIR$/project/src/game.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/graphics.cpp" afterPath="$PROJECT_DIR$/project/src/graphics.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/graphics.hpp" afterPath="$PROJECT_DIR$/project/src/graphics.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/interface.cpp" afterPath="$PROJECT_DIR$/project/src/interface.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/interface.hpp" afterPath="$PROJECT_DIR$/project/src/interface.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/src/lab.frag" afterPath="$PROJECT_DIR$/project/src/lab.frag" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -61,8 +43,8 @@
       <file leaf-file-name="entities.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/src/entities.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="387">
-              <caret line="194" column="96" lean-forward="false" selection-start-line="194" selection-start-column="96" selection-end-line="194" selection-end-column="96" />
+            <state relative-caret-position="216">
+              <caret line="188" column="33" lean-forward="false" selection-start-line="188" selection-start-column="33" selection-end-line="188" selection-end-column="33" />
               <folding>
                 <element signature="e#47#68#0" expanded="true" />
               </folding>
@@ -73,34 +55,12 @@
       <file leaf-file-name="entities.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project/src/entities.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="271" column="69" lean-forward="false" selection-start-line="271" selection-start-column="69" selection-end-line="271" selection-end-column="69" />
+            <state relative-caret-position="373">
+              <caret line="670" column="29" lean-forward="false" selection-start-line="670" selection-start-column="29" selection-end-line="670" selection-end-column="29" />
               <folding>
                 <element signature="e#47#70#0" expanded="true" />
-                <element signature="e#17780#19280#0" expanded="false" />
-                <element signature="e#19283#20689#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="graphics.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project/src/graphics.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="graphics.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/project/src/graphics.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="477">
-              <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
-              <folding>
-                <element signature="e#48#71#0" expanded="true" />
+                <element signature="e#17803#19303#0" expanded="false" />
+                <element signature="e#19306#20712#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -118,11 +78,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="loadobj.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common++/loadobj.h">
+      <file leaf-file-name="graphics.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project/src/graphics.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="32" column="2" lean-forward="false" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+            <state relative-caret-position="549">
+              <caret line="202" column="49" lean-forward="false" selection-start-line="202" selection-start-column="49" selection-end-line="202" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="interface.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/project/src/interface.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="37" column="58" lean-forward="false" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="58" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="VectorUtils3.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common++/VectorUtils3.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="684">
+              <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -131,8 +111,8 @@
       <file leaf-file-name="entity.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/src/entity.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="657">
-              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+            <state relative-caret-position="339">
+              <caret line="117" column="13" lean-forward="false" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -141,8 +121,8 @@
       <file leaf-file-name="game.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/project/src/game.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="37" column="6" lean-forward="false" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+            <state relative-caret-position="513">
+              <caret line="61" column="27" lean-forward="false" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -166,6 +146,7 @@
       <find>malloc</find>
       <find>image_data</find>
       <find>height_data</find>
+      <find>enemy</find>
     </findStrings>
     <replaceStrings>
       <replace>texture</replace>
@@ -197,11 +178,11 @@
         <option value="$PROJECT_DIR$/project/src/lab.frag" />
         <option value="$PROJECT_DIR$/project/src/interface.cpp" />
         <option value="$PROJECT_DIR$/project/src/entity.cpp" />
-        <option value="$PROJECT_DIR$/project/src/entities.hpp" />
-        <option value="$PROJECT_DIR$/project/src/graphics.cpp" />
         <option value="$PROJECT_DIR$/common++/LoadTGA.h" />
         <option value="$PROJECT_DIR$/common++/LoadTGA.c" />
+        <option value="$PROJECT_DIR$/project/src/graphics.cpp" />
         <option value="$PROJECT_DIR$/project/src/game.cpp" />
+        <option value="$PROJECT_DIR$/project/src/entities.hpp" />
         <option value="$PROJECT_DIR$/project/src/entities.cpp" />
       </list>
     </option>
@@ -252,6 +233,11 @@
             <path>
               <item name="CG_Labs" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
               <item name="CG_Labs" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CG_Labs" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="CG_Labs" type="462c0819:PsiDirectoryNode" />
+              <item name="common++" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CG_Labs" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
@@ -321,24 +307,23 @@
       <workItem from="1506096661097" duration="3526000" />
       <workItem from="1506119469442" duration="7403000" />
       <workItem from="1506171358064" duration="8518000" />
-      <workItem from="1506186236840" duration="894000" />
+      <workItem from="1506186236840" duration="6970000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="72047000" />
+    <option name="totallyTimeSpent" value="78123000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="24" width="1602" height="853" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20026007" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2001287" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827586" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18532819" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18532819" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -388,8 +373,8 @@
           <caret line="385" column="51" lean-forward="true" selection-start-line="385" selection-start-column="51" selection-end-line="385" selection-end-column="51" />
           <folding>
             <element signature="e#47#70#0" expanded="true" />
-            <element signature="e#17780#19280#0" expanded="false" />
-            <element signature="e#19283#20689#0" expanded="false" />
+            <element signature="e#17803#19303#0" expanded="false" />
+            <element signature="e#19306#20712#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -585,17 +570,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common++/VectorUtils3.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1422">
-          <caret line="79" column="9" lean-forward="false" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
-          <folding>
-            <element signature="e#557#683#0" expanded="false" />
-            <element signature="e#929#1079#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common++/loadobj.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5899">
@@ -637,6 +611,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-468">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -651,14 +626,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1818">
           <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/src/interface.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="972">
-          <caret line="54" column="8" lean-forward="false" selection-start-line="54" selection-start-column="8" selection-end-line="54" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -688,10 +655,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/src/entity.cpp">
+    <entry file="file://$PROJECT_DIR$/project/src/graphics.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+        <state relative-caret-position="279">
+          <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -700,6 +667,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="576">
           <caret line="32" column="2" lean-forward="false" selection-start-line="32" selection-start-column="2" selection-end-line="32" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common++/VectorUtils3.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="684">
+          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/src/interface.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="37" column="58" lean-forward="false" selection-start-line="37" selection-start-column="23" selection-end-line="37" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/project/src/graphics.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="202" column="49" lean-forward="false" selection-start-line="202" selection-start-column="49" selection-end-line="202" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -714,36 +705,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/project/src/graphics.cpp">
+    <entry file="file://$PROJECT_DIR$/project/src/entity.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="477">
-          <caret line="198" column="0" lean-forward="false" selection-start-line="198" selection-start-column="0" selection-end-line="198" selection-end-column="0" />
-          <folding>
-            <element signature="e#48#71#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/src/graphics.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+        <state relative-caret-position="339">
+          <caret line="117" column="13" lean-forward="false" selection-start-line="117" selection-start-column="13" selection-end-line="117" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project/src/game.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="37" column="6" lean-forward="false" selection-start-line="37" selection-start-column="6" selection-end-line="37" selection-end-column="6" />
+        <state relative-caret-position="513">
+          <caret line="61" column="27" lean-forward="false" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/project/src/entities.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="387">
-          <caret line="194" column="96" lean-forward="false" selection-start-line="194" selection-start-column="96" selection-end-line="194" selection-end-column="96" />
+        <state relative-caret-position="216">
+          <caret line="188" column="33" lean-forward="false" selection-start-line="188" selection-start-column="33" selection-end-line="188" selection-end-column="33" />
           <folding>
             <element signature="e#47#68#0" expanded="true" />
           </folding>
@@ -752,12 +733,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project/src/entities.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="271" column="69" lean-forward="false" selection-start-line="271" selection-start-column="69" selection-end-line="271" selection-end-column="69" />
+        <state relative-caret-position="373">
+          <caret line="670" column="29" lean-forward="false" selection-start-line="670" selection-start-column="29" selection-end-line="670" selection-end-column="29" />
           <folding>
             <element signature="e#47#70#0" expanded="true" />
-            <element signature="e#17780#19280#0" expanded="false" />
-            <element signature="e#19283#20689#0" expanded="false" />
+            <element signature="e#17803#19303#0" expanded="false" />
+            <element signature="e#19306#20712#0" expanded="false" />
           </folding>
         </state>
       </provider>

@@ -6,6 +6,7 @@
 #include "game.hpp"
 #include "random.hpp"
 #include "helpers.hpp"
+#include "interface.hpp"
 
 #include <iostream>
 #include <tuple>
@@ -435,7 +436,7 @@ void Terrain::randomize() {
     LoadTGATextureSimple("media/random_terrain/level_4.tga", &(this->texture_alpha[4]));
 
     this->position = SetVector(-2560, 0, -2560);
-    this->scale = SetVector(20, 20, 20);
+    this->scale = SetVector(1,1,1)*40;
     this->rotation = SetVector(0, 0, 0);
     this->reflectivity = 1.0;
     this->shininess = 0.0;
@@ -659,6 +660,53 @@ void Explosion::update() {
         alive = false;
     }
 }
+
+void Explosion::destroy_close_objects() {
+    for (auto e : Entity::world->children) {
+        if (e == Interface::player) continue;
+        if (not (dynamic_cast<Enemy*>(e)!=nullptr or dynamic_cast<Tree*>(e)!=nullptr)) continue;
+        vec3 dir = e->position - position;
+        double dis = Norm(dir);
+        if (dis < 100)
+            e->alive = false;
+    }
+}
+
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+void Enemy::update() {
+    Vehicle::update();
+
+    auto& player = Interface::player;
+
+    // If the player is close, we look at it
+    vec3 dir = player->position - position;
+    double dis = Norm(dir);
+    dir /= dis;
+
+    vec3 target;
+    if (dis < 300)
+        target = Ry(M_PI*0.5)*dir;
+    else if (dis < 2000)
+        target = dir;
+    else
+        target = Ry(-M_PI*0.5)*dir;
+
+    direction = direction*0.99 + (target-direction)*0.01;
+    direction /= Norm(direction);
+
+    movement = Ry(M_PI*0.5)*direction*Game::delta*10.0 ;
+}
+
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+
+Model* Tree::tree_model;
+GLuint Tree::tree_texture;
 
 
 #endif

@@ -13,24 +13,6 @@
 ********************************************************************************
 *******************************************************************************/
 
-class Box : public Entity {
-public:
-
-    Box() {
-        //this->model = LoadModelPlus("media/skybox.obj");
-        //LoadTGATextureSimple("media/SkyBox512.tga", &(this->texture_color[0]));
-        this->model = LoadModelPlus("media/teapot.obj");
-        LoadTGATextureSimple("media/grass.tga", &(this->texture_color[0]));
-    }
-
-    ~Box() {}
-};
-
-
-/*******************************************************************************
-********************************************************************************
-*******************************************************************************/
-
 class Vehicle;
 
 class Camera : public Entity {
@@ -62,6 +44,31 @@ public:
     }
 
     ~Camera() {}
+};
+
+
+/*******************************************************************************
+********************************************************************************
+*******************************************************************************/
+
+class Box : public Entity {
+public:
+
+    Box() {
+        this->model = LoadModelPlus("media/skybox.obj");
+        LoadTGATextureSimple("media/SkyBox512.tga", &(this->texture_color[0]));
+        scale = 1000*SetVector(-1,1,1);
+        use_light = false;
+        //this->model = LoadModelPlus("media/teapot.obj");
+        //LoadTGATextureSimple("media/grass.tga", &(this->texture_color[0]));
+    }
+
+    void update() {
+        Entity::update();
+        position = Camera::current->position;
+    }
+
+    ~Box() {}
 };
 
 

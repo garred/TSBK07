@@ -29,15 +29,16 @@ void Game::init_all() {
     Interface::init_all();
     Entity::init_all();
 
-    // Create a box in the middle
-    Entity* my_box = new Box();
-    Entity::world->add_child(my_box);
-
     // Creates a terrain
     Terrain::current = new Terrain();
     //Terrain::current->load_terrain();
     Terrain::current->randomize();
     Entity::world->add_child(Terrain::current);
+
+    // Create a box in the middle
+    Entity* my_box = new Box();
+    my_box->position.y = Terrain::current->get_height(my_box->position);
+    Entity::world->add_child(my_box);
 
     // Create a vehicle for the player
     Vehicle* my_node = new Vehicle();
